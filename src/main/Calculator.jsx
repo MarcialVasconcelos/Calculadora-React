@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 import './Calculator.css'
 
 import Button from '../components/Button'
@@ -37,6 +38,7 @@ export default class Calculator extends Component {
             const currentOperation = this.state.operation
 
             const values = [...this.state.values]
+            const MEMvalues = [...values]
             switch(currentOperation){
                 case '+': values[0] = values[0] + values[1];break;
                 case '-': values[0] = values[0] - values[1];break;
@@ -50,9 +52,10 @@ export default class Calculator extends Component {
                 this.clearMemory()
             return
             }
-
             values[1] = 0
-
+            
+            this.save(MEMvalues, currentOperation, values[0])
+            
             this.setState({
                 displayValue: parseFloat(`${values[0]}`.slice(0,10)),
                 operation: equals ? null : operation,
@@ -62,6 +65,20 @@ export default class Calculator extends Component {
             })
             console.log("State: ",this.state)
         }
+    }
+    
+    // Adiciona a operação realizada à memória
+    save(values, operation, result){
+        const list = document.getElementById('memory-list')
+        
+        let li = document.createElement("li");
+        
+        li.appendChild(document.createTextNode(
+             `${new Date().toLocaleTimeString("pt-br")} -> `
+            +`${values[0]} ${operation} ${values[1]}`
+            +` = ${result}`
+        ));
+        list.prepend(li)
     }
 
     invert() {
@@ -74,7 +91,7 @@ export default class Calculator extends Component {
         })
         console.log("State: ",this.state)        
     }
-
+    
     addDigit(n) {
         if (n === '.' && this.state.displayValue.includes('.')) {
             return
@@ -95,7 +112,7 @@ export default class Calculator extends Component {
             console.log(values)
         }
     }
-
+    
     render() {
         return (
             <div className="calculator">

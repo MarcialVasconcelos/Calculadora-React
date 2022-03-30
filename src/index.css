@@ -3,8 +3,8 @@
   src: url('./fonts/Roboto_Mono/static/RobotoMono-Thin.ttf');
 }
 
-* {
-  font-family: 'RobotoMono', monospace;
+div#root{
+  width: 75%;
 }
 
 html{
@@ -20,6 +20,18 @@ body {
   align-items: center;
   text-align: center;
 
+  font-family: 'RobotoMono', monospace;
   color: #fff;
   background: linear-gradient(rgb(135, 0, 0), rgb(25, 10, 5));
+}
+
+h1{
+  margin-bottom: 50px;
+}
+
+.container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-self: center;
 }
